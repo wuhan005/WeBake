@@ -9,7 +9,7 @@
 
 <div class="uk-container uk-container-small">
     <h2>仪表盘</h2>
-
+    <?php var_dump($db->get_db_status());?>
 </div>
 
 
