@@ -1,6 +1,10 @@
 <?php
     $nowPage = 'setting';
     include_once('header.php');
+
+    //Load the database.
+    require_once('../wb-includes/Database.class.php');
+    $db = new Database();
 ?>
 
 <div class="uk-container uk-container-small">
@@ -12,7 +16,7 @@
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">项目名称</label>
             <div class="uk-form-controls">
-                <input class="uk-input" id="form-horizontal-text" type="text" placeholder="我的项目">
+                <input class="uk-input" id="form-horizontal-text" type="text" placeholder="我的项目" value="<?php echo($db->get_single_options('project_name'));?>">
             </div>
         </div>
 
