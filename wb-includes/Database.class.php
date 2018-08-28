@@ -26,7 +26,7 @@ class Database {
         return $this->isConnected;
     }
 
-    public function get_single_options($optionName){
+    public function get_single_option($optionName){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_options WHERE `options_Name` = '$optionName'");
         
         //If the option is not existed, it will return false;

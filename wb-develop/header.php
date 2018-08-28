@@ -13,10 +13,10 @@
         <!-- Nav Bar-->
         <nav class="uk-navbar">
             <ul class="uk-navbar-nav">
-                <li class="<?php if($nowPage == 'dashboard'){echo('uk-active');}?>"><a href="index.php">仪表盘</a></li>
-                <li class="<?php if($nowPage == 'module'){echo('uk-active');}?>"><a href="">模块</a></li>
-                <li class="<?php if($nowPage == 'api'){echo('uk-active');}?>"><a href="">API 接口</a></li>
-                <li class="<?php if($nowPage == 'setting'){echo('uk-active');}?>"><a href="setting.php">项目设置</a></li>
+                <li class="<?php if($this->nowPage == 'Index'){echo('uk-active');}?>"><a href="/wb-develop/index.php">仪表盘</a></li>
+                <li class="<?php if($this->nowPage == 'module'){echo('uk-active');}?>"><a href="">模块</a></li>
+                <li class="<?php if($this->nowPage == 'api'){echo('uk-active');}?>"><a href="">API 接口</a></li>
+                <li class="<?php if($this->nowPage == 'Setting'){echo('uk-active');}?>"><a href="/wb-develop/index.php/Setting">项目设置</a></li>
             </ul>
         </nav>
     </div>
