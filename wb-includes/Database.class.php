@@ -1,6 +1,6 @@
 <?php
 
-require_once('../wb-config.php');
+require_once( ABSPATH . '/wb-config.php');
 
 class Database {
 
