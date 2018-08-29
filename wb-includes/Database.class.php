@@ -26,6 +26,11 @@ class Database {
         return $this->isConnected;
     }
 
+    public function get_all_module(){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_module");
+        return mysqli_fetch_all($result, MYSQLI_BOTH);
+    }
+
     public function get_single_option($optionName){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_options WHERE `options_Name` = '$optionName'");
         
@@ -42,5 +47,9 @@ class Database {
     public function get_all_options(){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_options");
         return mysqli_fetch_all($result);
+    }
+
+    public function add_module($name, $data){
+        $result = mysqli_query($this->conn, "INSERT INTO `wb_module` (`module_ID`, `module_Name`, `module_Key`) VALUES (NULL, '$name', '$data');");
     }
 }

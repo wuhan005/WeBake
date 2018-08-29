@@ -14,6 +14,9 @@ class Dev_Loader{
         //Register the router
         $this->pages['Index'] = 'main';
         $this->pages['Setting'] = 'setting';
+        $this->pages['Module'] = 'module';
+        $this->pages['AddModule'] = 'add_module';
+        
 
         $this->urlPathInfo = @explode('/',$_SERVER['PATH_INFO']);
         $this->nowPage = @$this->urlPathInfo[1];
