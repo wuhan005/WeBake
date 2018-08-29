@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>WeBake - 开发者模式</title>
+        <title><?php echo($this->db->get_single_option('project_name')); ?> - WeBake</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/css/uikit.min.css" />
@@ -28,19 +28,28 @@
 <div class="uk-background-muted uk-background-cover uk-background-norepeat uk-height-large uk-panel uk-flex uk-flex-right uk-flex-middle" style="background-image: url(/static/images/background.PNG);">
     <div class="uk-margin-large-right uk-card uk-card-default uk-card-body">
     <h3>登录</h3>
+
+    <!-- Alert -->
+    <?php if(isset($_GET['error'])){?>
+        <div class="uk-alert-danger" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>登录失败，请重试。</p>
+        </div>
+    <?php }?>
+
     <!-- Form -->
-    <form>
+    <form action="/index.php/Action?do=Login" method="POST">
         <div class="uk-margin">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: user"></span>
-                <input class="uk-input" type="text">
+                <input name="name" class="uk-input" type="text">
             </div>
         </div>
 
         <div class="uk-margin">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input class="uk-input" type="text">
+                <input name="password" class="uk-input" type="password">
             </div>
         </div>
         <button class="uk-button uk-button-primary uk-margin-small-bottom uk-align-center">登录</button>

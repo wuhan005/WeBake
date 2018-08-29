@@ -70,6 +70,16 @@ class Database {
         return mysqli_fetch_all($result);
     }
 
+    public function get_account_by_name($accountName){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_account WHERE `account_Name` = '$accountName'");
+        $result =  mysqli_fetch_array($result,MYSQLI_ASSOC);
+        if(count($result) != 0){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
     public function add_module($name, $data){
         mysqli_query($this->conn, "INSERT INTO `wb_module` (`module_ID`, `module_Name`, `module_Key`) VALUES (NULL, '$name', '$data');");
     }
