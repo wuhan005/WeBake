@@ -31,6 +31,11 @@ class Database {
         return mysqli_fetch_all($result, MYSQLI_BOTH);
     }
 
+    public function get_all_api(){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_api");
+        return mysqli_fetch_all($result, MYSQLI_BOTH);
+    }
+
     public function get_single_option($optionName){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_options WHERE `options_Name` = '$optionName'");
         
@@ -41,7 +46,18 @@ class Database {
         }else{
             return '';
         }
+    }
+
+    public function get_module_by_id($id){
+        $result = mysqli_query($this->conn, "SELECT `module_Name` FROM wb_module WHERE `module_ID` = '$id'");
         
+        //If user has deleted the module.
+        if($result){
+            // The [2] is the options_name.
+            return mysqli_fetch_row($result);
+        }else{
+            return '[不存在]';
+        }
     }
 
     public function get_all_options(){
@@ -50,6 +66,20 @@ class Database {
     }
 
     public function add_module($name, $data){
-        $result = mysqli_query($this->conn, "INSERT INTO `wb_module` (`module_ID`, `module_Name`, `module_Key`) VALUES (NULL, '$name', '$data');");
+        mysqli_query($this->conn, "INSERT INTO `wb_module` (`module_ID`, `module_Name`, `module_Key`) VALUES (NULL, '$name', '$data');");
+    }
+
+    public function add_api($data){
+        $data = implode(', ', $this->array_quote($data));
+        mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
+    }
+
+    private function array_quote($array){
+        foreach($array as $key => $value){
+            if(!is_numeric($value)){    //The number won't be added '.
+                $array[$key] = '\'' . $value . '\'';
+            }
+        }
+        return $array;
     }
 }

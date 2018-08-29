@@ -7,6 +7,9 @@ if(isset($_GET['do'])){
         case 'AddModule':
             addModule();
         break;
+        case 'AddAPI':
+            addAPI();
+        break;
     }
 }else{
     //TODO
@@ -27,6 +30,21 @@ function addModule(){
     $db->add_module($_POST['name'], $data);
 
     redirect('/wb-develop/index.php/Module');
+}
+
+function addAPI(){
+    global $db;
+
+    $data['name'] = $_POST['name'];
+    $data['meta'] = $_POST['meta'];
+    $data['type'] = $_POST['type'];
+    $data['method'] = $_POST['method'];
+    $data['version'] = $_POST['version'];
+    $data['module'] = $_POST['module'];
+
+    $db->add_api($data);
+
+    redirect('/wb-develop/index.php/API');
 }
 
 function redirect($url){

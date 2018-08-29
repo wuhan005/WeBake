@@ -16,7 +16,8 @@
             <ul class="uk-navbar-nav">
                 <li class="<?php if($this->nowPage == 'Index'){echo('uk-active');}?>"><a href="/wb-develop/index.php">仪表盘</a></li>
                 <li class="<?php if($this->nowPage == 'Module'){echo('uk-active');}?>"><a href="/wb-develop/index.php/Module">模块</a></li>
-                <li class="<?php if($this->nowPage == 'api'){echo('uk-active');}?>"><a href="">API 接口</a></li>
+                <li class="<?php if($this->nowPage == 'API'){echo('uk-active');}?>"><a href="/wb-develop/index.php/API">API 接口</a></li>
+                <li class="<?php if($this->nowPage == 'Client'){echo('uk-active');}?>"><a href="/wb-develop/index.php/Client">管理后台设置</a></li>
                 <li class="<?php if($this->nowPage == 'Setting'){echo('uk-active');}?>"><a href="/wb-develop/index.php/Setting">项目设置</a></li>
             </ul>
         </nav>
