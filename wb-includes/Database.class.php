@@ -27,13 +27,18 @@ class Database {
     }
 
     public function get_all_module(){
-        $result = mysqli_query($this->conn, "SELECT * FROM wb_module");
+        $result = mysqli_query($this->conn, 'SELECT * FROM wb_module');
         return mysqli_fetch_all($result, MYSQLI_BOTH);
     }
 
     public function get_all_api(){
-        $result = mysqli_query($this->conn, "SELECT * FROM wb_api");
+        $result = mysqli_query($this->conn, 'SELECT * FROM wb_api');
         return mysqli_fetch_all($result, MYSQLI_BOTH);
+    }
+
+    public function get_single_api($version, $meta){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_api WHERE `api_Version` = '$version' AND `api_Meta` = '$meta'");
+        return mysqli_fetch_all($result, MYSQLI_BOTH); 
     }
 
     public function get_single_option($optionName){
@@ -61,7 +66,7 @@ class Database {
     }
 
     public function get_all_options(){
-        $result = mysqli_query($this->conn, "SELECT * FROM wb_options");
+        $result = mysqli_query($this->conn, 'SELECT * FROM wb_options');
         return mysqli_fetch_all($result);
     }
 
