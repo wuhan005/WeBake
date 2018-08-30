@@ -25,7 +25,7 @@
                     <td><?php echo($value['api_Version']); ?></td>
                     <td><?php echo($value['api_Method']); ?></td>
                     <td><?php echo('/Api/' . $value['api_Version'] . '/' .$value['api_Meta'] ); ?></td>
-                    <td><?php echo($this->db->get_module_by_id($value['api_Module'])[0]); ?></td>
+                    <td><?php echo($this->db->get_module_by_id($value['api_Module'])['module_Name']); ?></td>
                     <td>测试 | 修改 | <span class="uk-text-danger">删除</span></td>
                 </tr>
             <?php }?>

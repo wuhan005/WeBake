@@ -31,6 +31,12 @@ class Database {
         return mysqli_fetch_all($result, MYSQLI_BOTH);
     }
 
+    //Get single module's data.
+    public function get_module_data($moduleID){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_data WHERE data_Module = $moduleID");
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     public function get_all_api(){
         $result = mysqli_query($this->conn, 'SELECT * FROM wb_api');
         return mysqli_fetch_all($result, MYSQLI_BOTH);
@@ -53,13 +59,14 @@ class Database {
         }
     }
 
+    //Get single module data.
     public function get_module_by_id($id){
-        $result = mysqli_query($this->conn, "SELECT `module_Name` FROM wb_module WHERE `module_ID` = '$id'");
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_module WHERE `module_ID` = '$id'");
         
         //If user has deleted the module.
         if($result){
             // The [2] is the options_name.
-            return mysqli_fetch_row($result);
+            return mysqli_fetch_array($result, MYSQLI_ASSOC);
         }else{
             return '[不存在]';
         }
@@ -72,7 +79,7 @@ class Database {
 
     public function get_account_by_name($accountName){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_account WHERE `account_Name` = '$accountName'");
-        $result =  mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $result =  mysqli_fetch_array($result, MYSQLI_ASSOC);
         if(count($result) != 0){
             return $result;
         }else{
@@ -87,6 +94,18 @@ class Database {
     public function add_api($data){
         $data = implode(', ', $this->array_quote($data));
         mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
+    }
+
+    //Add single module data.
+    public function add_data($moduleID, $content){
+        $moduleCount = count($this->get_module_data($moduleID));
+
+        $data[0] = json_encode($content);    //Data
+        $data[1] = $moduleID;   //From which module.
+
+        $data = implode(', ', $this->array_quote($data));
+
+        mysqli_query($this->conn, 'INSERT INTO `wb_data` (`data_ID`, `data_Content`, `data_Module`) VALUES (NULL, ' . $data . ');' );        
     }
 
     private function array_quote($array){
