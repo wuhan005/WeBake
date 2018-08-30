@@ -87,8 +87,8 @@ class Database {
         }
     }
 
-    public function add_module($name, $data){
-        mysqli_query($this->conn, "INSERT INTO `wb_module` (`module_ID`, `module_Name`, `module_Key`) VALUES (NULL, '$name', '$data');");
+    public function add_module($name, $data, $friendlyName){
+        mysqli_query($this->conn, "INSERT INTO `wb_module` (`module_ID`, `module_Name`, `module_FriendlyName`, `module_Key`) VALUES (NULL, '$name', '$friendlyName', '$data');");
     }
 
     public function add_api($data){
@@ -100,7 +100,7 @@ class Database {
     public function add_data($moduleID, $content){
         $moduleCount = count($this->get_module_data($moduleID));
 
-        $data[0] = json_encode($content);    //Data
+        $data[0] = json_encode($content, JSON_UNESCAPED_UNICODE);    //Data Don't escaped Chinese words.
         $data[1] = $moduleID;   //From which module.
 
         $data = implode(', ', $this->array_quote($data));

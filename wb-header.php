@@ -21,7 +21,7 @@
         <li class="uk-active"><a href="#"><span class="uk-margin-small-right" uk-icon="icon: home"></span> 主页</a></li>
         <li class="uk-nav-header">项目</li>
         <?php foreach($this->db->get_all_module() as $key => $value){?>
-            <li><a href="/index.php/Module?id=<?php echo($value['module_ID']); ?>"><?php echo($value['module_Name']);?></a></li>
+            <li><a href="/index.php/Module?id=<?php echo($value['module_ID']); ?>"><?php echo($value['module_FriendlyName']);?></a></li>
 
         <?php }?>
         <li class="uk-nav-divider"></li>

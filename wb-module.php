@@ -1,6 +1,6 @@
 <?php include_once('wb-header.php');?>
 
-<h2><?php echo($this->db->get_module_by_id($_GET['id'])['module_Name']);?></h2>
+<h2><?php echo($this->db->get_module_by_id($_GET['id'])['module_FriendlyName']);?></h2>
 
 <span class="uk-text-meta">当前共有 <?php echo(count($this->db->get_module_data($_GET['id']))); ?> 条数据</span> 
     <a class="uk-button uk-button-primary uk-align-right" href="/index.php/AddModule?id=<?php echo($_GET['id']);?>">添加</a>
@@ -19,7 +19,7 @@
                         if($key != 0){
                             $keyName[] = $key;
                     ?>
-                        <th><?php echo($value[0]);?></th>
+                        <th><?php echo($value[1]);?></th>
                             
                     <?php } }?>
                     <th></th>

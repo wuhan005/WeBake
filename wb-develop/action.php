@@ -1,4 +1,6 @@
 <?php
+define( 'ABSPATH', '..' );
+
 require_once('../wb-includes/Database.class.php');
 $db = new Database();
 
@@ -19,15 +21,17 @@ function addModule(){
     global $db;
 
     $row = $_POST['row'];
+    //ID field.
     $data[0] = [$_POST['field_1_1'],'number'];
 
+    //Add the other user's field.
     for($i = 2; $i <= $row; $i++){
-        $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2']];
+        $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3']];
     }
 
-    $data = json_encode($data);
+    $data = json_encode($data, JSON_UNESCAPED_UNICODE); //Don't escaped Chinese words.
 
-    $db->add_module($_POST['name'], $data);
+    $db->add_module($_POST['name'], $data, $_POST['friendlyname']);
 
     redirect('/wb-develop/index.php/Module');
 }
