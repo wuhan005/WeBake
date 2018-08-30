@@ -108,6 +108,10 @@ class Database {
         mysqli_query($this->conn, 'INSERT INTO `wb_data` (`data_ID`, `data_Content`, `data_Module`) VALUES (NULL, ' . $data . ');' );        
     }
 
+    public function delete_module($mid){
+        mysqli_query($this->conn, "DELETE FROM `wb_module` WHERE `module_ID` = $mid");
+    }
+
     private function array_quote($array){
         foreach($array as $key => $value){
             if(!is_numeric($value)){    //The number won't be added '.

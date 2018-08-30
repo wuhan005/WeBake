@@ -17,6 +17,7 @@ class Dev_Loader{
         $this->pages['Module'] = 'module';
         $this->pages['Setting'] = 'setting';
         $this->pages['AddModule'] = 'add_module';
+        $this->pages['DeleteModule'] = 'delete_module';
         $this->pages['AddAPI'] = 'add_api';
         
 

@@ -12,6 +12,9 @@ if(isset($_GET['do'])){
         case 'AddAPI':
             addAPI();
         break;
+        case 'DeleteModule':
+            deleteModule();
+        break;
     }
 }else{
     //TODO
@@ -49,6 +52,13 @@ function addAPI(){
     $db->add_api($data);
 
     redirect('/wb-develop/index.php/API');
+}
+
+function deleteModule(){
+    global $db;
+    $db->delete_module($_POST['mid']);
+
+    redirect('/wb-develop/index.php/Module');
 }
 
 function redirect($url){
