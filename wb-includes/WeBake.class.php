@@ -18,8 +18,9 @@ class WeBake{
         $this->pages['Action'] = 'wb-action';
         $this->pages['Dashboard'] = 'wb-dashboard';
         $this->pages['Module'] = 'wb-module';
-        $this->pages['AddModule'] = 'wb-adddata';
+        $this->pages['AddData'] = 'wb-adddata';
         $this->pages['DeleteData'] = 'wb-deletedata';
+        $this->pages['EditData'] = 'wb-editdata';
         
         $this->urlPathInfo = @explode('/',$_SERVER['PATH_INFO']);
         $this->nowPage = @$this->urlPathInfo[1];

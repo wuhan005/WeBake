@@ -3,7 +3,7 @@
 <h2><?php echo($this->db->get_module_by_id($_GET['id'])['module_FriendlyName']);?></h2>
 
 <span class="uk-text-meta">当前共有 <?php echo(count($this->db->get_module_data($_GET['id']))); ?> 条数据</span> 
-    <a class="uk-button uk-button-primary uk-align-right" href="/index.php/AddModule?id=<?php echo($_GET['id']);?>">添加</a>
+    <a class="uk-button uk-button-primary uk-align-right" href="/index.php/AddData?id=<?php echo($_GET['id']);?>">添加</a>
 
     <?php if(!empty($this->db->get_module_data($_GET['id']))){?>
         <table class="uk-table uk-table-divider">
@@ -38,7 +38,7 @@
                         <td><?php echo($dataValue); ?></td>
                     <?php }?>
 
-                    <td><a class="uk-text-muted" href="">修改</a> | <a class="uk-text-danger" href="/index.php/DeleteData?id=<?php echo($value['data_ID']);?>">删除</a></td>
+                    <td><a class="uk-text-muted" href="/index.php/EditData?id=<?php echo($value['data_ID']);?>">修改</a> | <a class="uk-text-danger" href="/index.php/DeleteData?id=<?php echo($value['data_ID']);?>">删除</a></td>
                 </tr>
             <?php }?>
             </tbody>

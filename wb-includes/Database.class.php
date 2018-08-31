@@ -126,6 +126,12 @@ class Database {
         mysqli_query($this->conn, 'INSERT INTO `wb_data` (`data_ID`, `data_Content`, `data_Module`) VALUES (NULL, ' . $data . ');' );        
     }
 
+    public function edit_data($moduleID, $content){
+        $data = json_encode($content, JSON_UNESCAPED_UNICODE);    //Data Don't escaped Chinese words.
+
+        mysqli_query($this->conn, "UPDATE `wb_data` SET `data_Content` = '$data' WHERE `data_ID` = $moduleID;");
+    }
+
     public function delete_data($id){
         mysqli_query($this->conn, "DELETE FROM `wb_data` WHERE `data_ID` = $id");
     }
