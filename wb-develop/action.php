@@ -15,6 +15,9 @@ if(isset($_GET['do'])){
         case 'DeleteModule':
             deleteModule();
         break;
+        case 'EditModule':
+            editModule();
+        break;
     }
 }else{
     //TODO
@@ -52,6 +55,29 @@ function addAPI(){
     $db->add_api($data);
 
     redirect('/wb-develop/index.php/API');
+}
+
+function editModule(){
+    global $db;
+
+    $mid = $_POST['mid'];
+    $row = $_POST['row'];
+    $name = $_POST['name'];
+    $friendlyName = $_POST['friendlyname'];
+
+    //ID field.
+    $data[0] = [$_POST['field_1_1'],'number'];
+
+    //Add the other user's field.
+    for($i = 2; $i <= $row; $i++){
+        $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3']];
+    }
+
+    $data = json_encode($data, JSON_UNESCAPED_UNICODE); //Don't escaped Chinese words.
+
+    $db->edit_module($mid, $name, $friendlyName, $data);
+
+    redirect('/wb-develop/index.php/EditModule?id=' . $mid);
 }
 
 function deleteModule(){

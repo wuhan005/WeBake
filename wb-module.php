@@ -37,7 +37,8 @@
                     <?php foreach($data as $dataKey => $dataValue){?>
                         <td><?php echo($dataValue); ?></td>
                     <?php }?>
-                    <td>修改 | <span class="uk-text-danger">删除</span></td>
+
+                    <td><a class="uk-text-muted" href="">修改</a> | <a class="uk-text-danger" href="/index.php/DeleteData?id=<?php echo($value['data_ID']);?>">删除</a></td>
                 </tr>
             <?php }?>
             </tbody>

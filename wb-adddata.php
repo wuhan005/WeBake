@@ -19,7 +19,7 @@
                 <?php }else if($value[2] == 'number'){?>
                     <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number">
                 <?php }else if($value[2] == 'boolean'){?>
-                    
+                    <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number">
                 <?php }?>
             </div>
         </div>

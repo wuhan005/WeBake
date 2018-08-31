@@ -9,6 +9,9 @@ if(isset($_GET['do'])){
         case 'AddModule':
             add_module_data($this->db); //Require database;
         break;
+        case 'DeleteData':
+            delete_module_data($this->db); //Require database;
+        break;
     }
 }else{
     //TODO
@@ -51,8 +54,16 @@ function add_module_data($db){
                 $data[$key] = $value;
             }
         }        
-        
+
         $db->add_data($_POST['mid'], $data);
+    }
+    redirect('/index.php/Module?id=' . $_POST['mid']);
+}
+
+function delete_module_data($db){
+    //Module ID is used to redirect.
+    if(isset($_POST['id']) AND $_POST['mid']){      
+        $db->delete_data($_POST['id']);
     }
     redirect('/index.php/Module?id=' . $_POST['mid']);
 }

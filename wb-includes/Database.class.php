@@ -72,6 +72,24 @@ class Database {
         }
     }
 
+    public function get_key_friendly_name($moduleID, $keyName){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_module WHERE `module_ID` = '$moduleID'");
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $key = $result[0]['module_Key'];
+        $key = json_decode($key);
+        foreach($key as $index => $value){
+            if($value[0] == $keyName){
+                return $value[1];
+            }
+        }
+        return null;
+    }
+
+    public function get_data_by_id($id){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_data WHERE `data_ID` = $id");
+        return mysqli_fetch_all($result, MYSQLI_ASSOC)[0]; 
+    }
+
     public function get_all_options(){
         $result = mysqli_query($this->conn, 'SELECT * FROM wb_options');
         return mysqli_fetch_all($result);
@@ -106,6 +124,14 @@ class Database {
         $data = implode(', ', $this->array_quote($data));
 
         mysqli_query($this->conn, 'INSERT INTO `wb_data` (`data_ID`, `data_Content`, `data_Module`) VALUES (NULL, ' . $data . ');' );        
+    }
+
+    public function delete_data($id){
+        mysqli_query($this->conn, "DELETE FROM `wb_data` WHERE `data_ID` = $id");
+    }
+
+    public function edit_module($mid, $name, $friendlyName, $data){
+        mysqli_query($this->conn, "UPDATE `wb_module` SET `module_Name` = '$name', `module_FriendlyName` = '$friendlyName', `module_Key` = '$data' WHERE `module_ID` = $mid;");
     }
 
     public function delete_module($mid){
