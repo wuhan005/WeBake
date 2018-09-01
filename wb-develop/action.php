@@ -45,12 +45,26 @@ function addModule(){
 function addAPI(){
     global $db;
 
+    //The order should be equal to the database's.
     $data['name'] = $_POST['name'];
     $data['meta'] = $_POST['meta'];
     $data['type'] = $_POST['type'];
+
+    //Setting
+    //Different type.
+    if($data['type'] == 'read'){
+        if($_POST['showAmount'] == 'all'){
+            //Add the setting, 'all' is just one element.
+            $data['setting'] = json_encode(['all']);
+        }else if($_POST['showAmount'] == 'part'){
+            $data['setting'] = json_encode(['part', $_POST['countPerPage']]);
+        }
+    }
+
     $data['method'] = $_POST['method'];
     $data['version'] = $_POST['version'];
     $data['module'] = $_POST['module'];
+
 
     $db->add_api($data);
 

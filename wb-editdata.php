@@ -1,5 +1,6 @@
 <?php include_once('wb-header.php');?>
 
+<h2>修改数据</h2>
 
 <form action="/index.php/Action?do=EditData" method="POST" class="uk-form-horizontal uk-margin-large">
     <input name="id" value="<?php echo($_GET['id']);?>" type="hidden">
@@ -11,6 +12,7 @@
     $data = json_decode($data, true);
 
     //Get the data's module. Used to display the friendly name.
+    $key = $this->db->get_module_by_id($this->db->get_data_by_id($_GET['id'])['data_Module'])['module_Key'];
     $key = json_decode($key, true);
     ?>
 

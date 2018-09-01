@@ -18,6 +18,7 @@ class Api{
 
         //The Api is existed or not. 
         if(in_array($this->get_now_api(), $this->ApiURL)){
+            //Show it!
             $this->pack_api();
         }else{
             $this->render(404, 'Api Not Found.', true);
@@ -25,6 +26,7 @@ class Api{
     }
 
     private function pack_api(){
+        //We think the api is existed.
         $apiData = $this->db->get_single_api($this->get_now_api('version'), $this->get_now_api('meta'))[0];
         $api_type = $apiData['api_Type'];
 
@@ -42,6 +44,7 @@ class Api{
         $version = @$urlPathInfo[2];
         $meta = @$urlPathInfo[3];
         
+        //Used to get the every part of the url.
         switch($type){
             case 'all':
                 return $version . '/' . $meta;

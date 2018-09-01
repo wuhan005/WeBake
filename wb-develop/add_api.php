@@ -1,9 +1,8 @@
 <div class="uk-container uk-container-small">
     <h2>添加新的 API 接口</h2>
 
-    <form action="/wb-develop/action.php?do=AddAPI" method="POST" class="uk-form-horizontal uk-margin-large">
+    <form action="/wb-develop/action.php?do=Add11API" method="POST" class="uk-form-horizontal uk-margin-large">
 
-        <input id="row" name="row" type="hidden">
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">名称</label>
             <div class="uk-form-controls">
@@ -21,11 +20,40 @@
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">类型</label>
             <div class="uk-form-controls">
-                <select name="type" class="uk-select" id="form-stacked-select">
+                <select id="type" name="type" class="uk-select" id="form-stacked-select" onchange="apiTypeChange()">
                     <option value="read">读取</option>
                     <option value="action">请求</option>
                 </select>
             </div>
+        </div>
+
+<!-- Read type's api's setting. -->
+        <div uk-alert>
+            <div id="readSetting" class="uk-margin">
+                <label class="uk-form-label" for="form-horizontal-text">显示条数</label>
+                <div class="uk-form-controls">
+                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                        <label><input id="all" class="uk-radio" onchange="displayTypeSettingChange()" type="radio" name="showAmount" checked value="all"> 全部</label>
+                        <label><input id="part" class="uk-radio" onchange="displayTypeSettingChange()" type="radio" name="showAmount" value="part"> 部分分页</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="partDisplaySetting" class="uk-margin">
+                <label class="uk-form-label" for="form-horizontal-text">每页条数</label>
+                <div class="uk-form-controls">
+                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                        <input id="countPerPage" name="countPerPage" class="uk-input" id="form-horizontal-text" type="text">
+                    </div>
+                </div>
+
+                <label class="uk-form-label" for="form-horizontal-text">页面参数名称</label>
+                <div class="uk-form-controls">
+                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                        <input id="nowPageName" name="nowPageName" class="uk-input" id="form-horizontal-text" type="text" value="page">
+                    </div>
+                </div>
+            </div>  
         </div>
         
         <div class="uk-margin">
@@ -61,3 +89,33 @@
         </div>
     </form>
 </div>
+
+<script>
+
+$('#partDisplaySetting').hide();
+
+function apiTypeChange(){
+    var apiType = $('#type').val();
+
+    if(apiType == 'read'){
+        $('#readSetting').show();
+        displayTypeSettingChange();
+
+    }else if(apiType == 'action'){
+        $('#readSetting').hide();
+
+        $('#partDisplaySetting').hide();
+    }
+
+}
+
+function displayTypeSettingChange(){
+    var displayType = $("[name='showAmount']:checked").val();
+    if(displayType == 'part'){
+        $('#partDisplaySetting').show();
+
+    }else if(displayType == 'all'){
+        $('#partDisplaySetting').hide();
+    }
+}
+</script>

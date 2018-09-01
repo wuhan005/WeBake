@@ -110,8 +110,9 @@ class Database {
     }
 
     public function add_api($data){
+        //Pay attention the $data's order.
         $data = implode(', ', $this->array_quote($data));
-        mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
+        mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Setting`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
     }
 
     //Add single module data.
