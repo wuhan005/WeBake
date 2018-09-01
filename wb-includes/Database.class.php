@@ -44,7 +44,7 @@ class Database {
 
     public function get_single_api($version, $meta){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_api WHERE `api_Version` = '$version' AND `api_Meta` = '$meta'");
-        return mysqli_fetch_all($result, MYSQLI_BOTH); 
+        return mysqli_fetch_all($result, MYSQLI_BOTH)[0]; 
     }
 
     public function get_single_option($optionName){

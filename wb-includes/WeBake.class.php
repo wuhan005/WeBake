@@ -1,5 +1,6 @@
 <?php
 require_once('Database.class.php');
+require_once('Form.class.php');
 
 class WeBake{
 
@@ -8,6 +9,7 @@ class WeBake{
     private $pages = [];
 
     private $db;
+    private $form;
 
     //URL Router.
     public function __construct(){
@@ -32,6 +34,9 @@ class WeBake{
 
         //Load the database.
         $this->db = new Database();
+
+        //Load the Form Class.
+        $this->form = new Form();
 
         $this->load_page();
     }

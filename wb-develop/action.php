@@ -57,7 +57,7 @@ function addAPI(){
             //Add the setting, 'all' is just one element.
             $data['setting'] = json_encode(['all']);
         }else if($_POST['showAmount'] == 'part'){
-            $data['setting'] = json_encode(['part', $_POST['countPerPage']]);
+            $data['setting'] = json_encode(['part', $_POST['countPerPage'], $_POST['nowPageName']]);
         }
     }
 

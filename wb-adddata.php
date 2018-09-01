@@ -1,7 +1,7 @@
 <?php include_once('wb-header.php');?>
 
 <h2><?php echo($this->db->get_module_by_id($_GET['id'])['module_FriendlyName']);?> · 添加数据</h2>
-<form action="/index.php/Action?do=AddModule" method="POST" class="uk-form-horizontal uk-margin-large">
+<form action="/index.php/Action?do=AddData" method="POST" class="uk-form-horizontal uk-margin-large">
     <input name="mid" value="<?php echo($_GET['id']);?>" type="hidden">
 
     <?php 

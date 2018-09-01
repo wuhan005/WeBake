@@ -1,7 +1,7 @@
 <div class="uk-container uk-container-small">
     <h2>添加新的 API 接口</h2>
 
-    <form action="/wb-develop/action.php?do=Add11API" method="POST" class="uk-form-horizontal uk-margin-large">
+    <form action="/wb-develop/action.php?do=AddAPI" method="POST" class="uk-form-horizontal uk-margin-large">
 
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">名称</label>
@@ -43,14 +43,14 @@
                 <label class="uk-form-label" for="form-horizontal-text">每页条数</label>
                 <div class="uk-form-controls">
                     <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                        <input id="countPerPage" name="countPerPage" class="uk-input" id="form-horizontal-text" type="text">
+                        <input name="countPerPage" class="uk-input" id="form-horizontal-text" type="text">
                     </div>
                 </div>
 
                 <label class="uk-form-label" for="form-horizontal-text">页面参数名称</label>
                 <div class="uk-form-controls">
                     <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                        <input id="nowPageName" name="nowPageName" class="uk-input" id="form-horizontal-text" type="text" value="page">
+                        <input name="nowPageName" class="uk-input" id="form-horizontal-text" type="text" value="page">
                     </div>
                 </div>
             </div>  
