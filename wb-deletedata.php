@@ -23,7 +23,18 @@
 
     foreach($key as $index => $value){
          if($index != 0){?>
-           <p><?php echo($value[1]);?>：<?php echo($data[$value[0]]);?></p>
+           <p><?php echo($value[1]);?>：
+           <?php
+           if(isset($data[$value[0]])){
+                if(is_array($data[$value[0]])){
+                    foreach($data[$value[0]] as $key){
+                        echo($key . ' ');
+                    }
+                }else{
+                    echo($data[$value[0]]);
+                }
+            }
+            ?></p>
 
     <?php } }?>
 

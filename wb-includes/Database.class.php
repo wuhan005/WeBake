@@ -13,9 +13,9 @@ class Database {
     }
 
     private function connect(){
-        $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+        $this->conn = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
         if(!$this->conn){
-            //TODO
+            header('Location: /wb-error.php?t=database_error');     //Return an error.
         }else{
             mysqli_select_db($this->conn, DB_NAME);
             $this->isConnected = true;

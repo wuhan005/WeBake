@@ -56,7 +56,7 @@ function add_module_data($db){
             if($key != 'mid'){
                 $data[$key] = $value;
             }
-        }        
+        }      
 
         $db->add_data($_POST['mid'], $data);
     }

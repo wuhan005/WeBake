@@ -14,6 +14,18 @@
     //Get the data's module. Used to display the friendly name.
     $key = $this->db->get_module_by_id($this->db->get_data_by_id($_GET['id'])['data_Module'])['module_Key'];
     $key = json_decode($key, true);
+
+    function isCheck($fieldValue, $dataValue){
+        if(is_array($dataValue)){
+            if(in_array($fieldValue, $dataValue)){
+                echo('checked');
+            }
+        }else{
+            if($fieldValue == $dataValue){
+                echo('checked');
+            }
+        }
+    }
     ?>
 
     <?php 
@@ -25,10 +37,34 @@
             <div class="uk-form-controls">
                 <?php if($value[2] == 'string'){?>
                     <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="text" value="<?php echo($data[$value[0]]); ?>">
+
+                <?php }else if($value[2] == 'textarea'){?>
+                    <textarea name="<?php echo($value[0]);?>" class="uk-textarea" rows="5" value="<?php echo($data[$value[0]]); ?>"></textarea>
+
                 <?php }else if($value[2] == 'number'){?>
-                    <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number" value="<?php echo($data[$value[0]]); ?>">
+                    <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number"  value="<?php echo($data[$value[0]]); ?>">
+
                 <?php }else if($value[2] == 'boolean'){?>
-                    <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number" value="<?php echo($data[$value[0]]); ?>">
+                    <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" value="<?php echo($value[3][0]);?>" <?php isCheck($value[3][0], $data[$value[0]]);?>> <?php echo($value[3][0]);?></label>
+                    <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" value="<?php echo($value[3][1]);?>" <?php isCheck($value[3][1], $data[$value[0]]);?>> <?php echo($value[3][1]);?></label>
+
+                <?php }else if($value[2] == 'select'){?>
+                    <?php foreach($value[3] as $radioKey => $radioValue){?>
+                        <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" <?php isCheck($radioValue, $data[$value[0]]);?>> <?php echo($radioValue);?></label><br>
+                    <?php }?>
+
+                <?php }else if($value[2] == 'checkbox'){?>
+                    <?php foreach($value[3] as $radioKey => $radioValue){?>
+                        <label><input class="uk-checkbox" type="checkbox" name="<?php echo($value[0] . '[]');?>" value="<?php echo($radioValue);?>" <?php isCheck($radioValue, $data[$value[0]]);?>> <?php echo($radioValue);?></label><br>
+                    <?php }?>
+
+                <?php }else if($value[2] == 'upload'){?>
+                    <div uk-form-custom="target: true" class="uk-form-custom uk-first-column">
+                        <input type="file">
+                        <input class="uk-input uk-form-width-medium" type="text" placeholder="选择文件" disabled="">
+                     </div>
+                    <button class="uk-button uk-button-default">上传</button>
+
                 <?php }?>
             </div>
         </div>

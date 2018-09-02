@@ -35,7 +35,17 @@
                     <td><?php echo($key + 1);?></td>
 
                     <?php foreach($data as $dataKey => $dataValue){?>
-                        <td><?php echo($dataValue); ?></td>
+                        <td><?php
+                            //Judge the data is array or not.
+                            if(is_array($dataValue)){
+                                foreach($dataValue as $key){
+                                    echo($key . ' ');
+                                }
+                            }else{
+                                echo($dataValue); 
+                            }
+                        ?>
+                        </td>
                     <?php }?>
 
                     <td><a class="uk-text-muted" href="/index.php/EditData?id=<?php echo($value['data_ID']);?>">修改</a> | <a class="uk-text-danger" href="/index.php/DeleteData?id=<?php echo($value['data_ID']);?>">删除</a></td>

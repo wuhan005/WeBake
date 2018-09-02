@@ -16,10 +16,34 @@
             <div class="uk-form-controls">
                 <?php if($value[2] == 'string'){?>
                     <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="text">
+
+                <?php }else if($value[2] == 'textarea'){?>
+                    <textarea name="<?php echo($value[0]);?>" class="uk-textarea" rows="5"></textarea>
+
                 <?php }else if($value[2] == 'number'){?>
                     <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number">
+
                 <?php }else if($value[2] == 'boolean'){?>
-                    <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number">
+                    <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" value="<?php echo($value[3][0]);?>" checked> <?php echo($value[3][0]);?></label>
+                    <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" value="<?php echo($value[3][1]);?>"> <?php echo($value[3][1]);?></label>
+
+                <?php }else if($value[2] == 'select'){?>
+                    <?php foreach($value[3] as $radioKey => $radioValue){?>
+                        <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" <?php if($radioKey == 0){echo('checked');}?>> <?php echo($radioValue);?></label><br>
+                    <?php }?>
+
+                <?php }else if($value[2] == 'checkbox'){?>
+                    <?php foreach($value[3] as $radioKey => $radioValue){?>
+                        <label><input class="uk-checkbox" type="checkbox" name="<?php echo($value[0] . '[]');?>" value="<?php echo($radioValue);?>" <?php if($radioKey == 0){echo('checked');}?>> <?php echo($radioValue);?></label><br>
+                    <?php }?>
+
+                <?php }else if($value[2] == 'upload'){?>
+                    <div uk-form-custom="target: true" class="uk-form-custom uk-first-column">
+                        <input type="file">
+                        <input class="uk-input uk-form-width-medium" type="text" placeholder="选择文件" disabled="">
+                     </div>
+                    <button class="uk-button uk-button-default">上传</button>
+
                 <?php }?>
             </div>
         </div>
