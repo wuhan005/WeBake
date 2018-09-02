@@ -12,11 +12,17 @@ if(isset($_GET['do'])){
         case 'AddAPI':
             addAPI();
         break;
+        case 'DeleteAPI':
+            deleteAPI();
+        break;
         case 'DeleteModule':
             deleteModule();
         break;
         case 'EditModule':
             editModule();
+        break;
+        case 'EditSetting':
+            editSetting();
         break;
     }
 }else{
@@ -32,7 +38,16 @@ function addModule(){
 
     //Add the other user's field.
     for($i = 2; $i <= $row; $i++){
-        $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3']];
+        //The boolean, select, checkbox. upload needs the data field.
+        $needMoreOption = ['boolean', 'select', 'checkbox', 'upload'];
+
+        if(in_array($_POST['field_' . $i .'_3'], $needMoreOption)){
+            $optionArray = comma_to_array($_POST['field_' . $i .'_4']);
+
+            $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3'], $optionArray];
+        }else{
+            $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3']];
+        }
     }
 
     $data = json_encode($data, JSON_UNESCAPED_UNICODE); //Don't escaped Chinese words.
@@ -71,6 +86,15 @@ function addAPI(){
     redirect('/wb-develop/index.php/API');
 }
 
+function deleteAPI(){
+    global $db;
+    if(isset($_POST['id'])){
+        $db->delete_api($id);
+    }
+
+    redirect('/wb-develop/index.php/API');
+}
+
 function editModule(){
     global $db;
 
@@ -101,6 +125,22 @@ function deleteModule(){
     redirect('/wb-develop/index.php/Module');
 }
 
+function editSetting(){
+    global $db;
+    $data['project_name'] = $_POST['projectName'];
+    $data['copyright'] = $_POST['copyright'];
+
+    $db->edit_setting($data);
+
+    redirect('/wb-develop/index.php/Setting');
+}
+
+function comma_to_array($string){
+    $string = str_replace('，', ',', $string);  //Convert the Chinese character comma to English comma.
+    $array = explode(',', $string);
+
+    return $array;
+}
 function redirect($url){
     header('Location: ' . $url);
 }

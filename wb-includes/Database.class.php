@@ -47,6 +47,11 @@ class Database {
         return mysqli_fetch_all($result, MYSQLI_BOTH)[0]; 
     }
 
+    public function get_single_api_by_id($id){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_api WHERE `api_ID` = $id");
+        return mysqli_fetch_all($result, MYSQLI_BOTH)[0];       
+    }
+
     public function get_single_option($optionName){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_options WHERE `options_Name` = '$optionName'");
         
@@ -115,6 +120,10 @@ class Database {
         mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Setting`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
     }
 
+    public function delete_api($id){
+        mysqli_query($this->conn, "DELETE FROM `wb_api` WHERE `api_ID` = $id");
+    }
+
     //Add single module data.
     public function add_data($moduleID, $content){
         $moduleCount = count($this->get_module_data($moduleID));
@@ -143,6 +152,13 @@ class Database {
 
     public function delete_module($mid){
         mysqli_query($this->conn, "DELETE FROM `wb_module` WHERE `module_ID` = $mid");
+    }
+
+    public function edit_setting($data){
+        foreach($data as $key => $value){
+            mysqli_query($this->conn, "UPDATE `wb_options` SET `options_Value` = '$value' WHERE `options_Name` = '$key';");
+        }
+
     }
 
     private function array_quote($array){

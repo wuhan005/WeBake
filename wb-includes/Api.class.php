@@ -92,7 +92,7 @@ class Api{
             }
 
 
-        }else{
+        }else if($api_type == 'action'){
 
         }
     }

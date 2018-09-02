@@ -20,6 +20,7 @@ class Dev_Loader{
         $this->pages['EditModule'] = 'edit_module';
         $this->pages['DeleteModule'] = 'delete_module';
         $this->pages['AddAPI'] = 'add_api';
+        $this->pages['DeleteAPI'] = 'delete_api';
         
 
         $this->urlPathInfo = @explode('/',$_SERVER['PATH_INFO']);
