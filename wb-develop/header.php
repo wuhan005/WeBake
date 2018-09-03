@@ -21,6 +21,8 @@
                 <li class="<?php if($this->nowPage == 'API'){echo('uk-active');}?>"><a href="/wb-develop/index.php/API">API 接口</a></li>
                 <li class="<?php if($this->nowPage == 'Client'){echo('uk-active');}?>"><a href="/wb-develop/index.php/Client">管理后台设置</a></li>
                 <li class="<?php if($this->nowPage == 'Setting'){echo('uk-active');}?>"><a href="/wb-develop/index.php/Setting">项目设置</a></li>
+                <li><a href="/index.php/Dashboard">客户后台</a></li>
+                <li><a href="/index.php/Action?do=Logout">登出</a></li>
             </ul>
         </nav>
     </div>

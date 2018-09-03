@@ -15,6 +15,10 @@ if(isset($_GET['do'])){
         case 'DeleteData':
             delete_module_data($this->db); //Require database;
         break;
+        case 'Logout':
+            $this->account->LogOut();
+            redirect('/index.php?logout');
+        break;
     }
 }else{
     //TODO

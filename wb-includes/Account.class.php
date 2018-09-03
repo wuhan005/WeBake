@@ -35,6 +35,10 @@ class Account{
         }
     }
 
+    public function LogOut(){
+        session_destroy();
+    }
+
     public function isLogin(){
         if(isset($_SESSION['isLoggedIn'])){
             return $_SESSION['isLoggedIn'];

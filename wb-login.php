@@ -31,7 +31,7 @@
 
 <!-- Login form -->
 <div class="uk-width-1-1">
-    <div class="uk-margin-large-right uk-position-center-right uk-card uk-card-default uk-card-body uk-width-medium uk-height-medium">
+    <div class="uk-margin-large-right uk-position-center-right uk-card uk-card-default uk-card-body uk-width-medium">
         <h3>登录</h3>
 
         <!-- Alert -->
@@ -39,6 +39,13 @@
             <div class="uk-alert-danger" uk-alert>
             <a class="uk-alert-close" uk-close></a>
             <p>登录失败，请重试。</p>
+            </div>
+        <?php }?>
+
+        <?php if(isset($_GET['logout'])){?>
+            <div class="uk-alert-warning" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p>您已登出。</p>
             </div>
         <?php }?>
 
