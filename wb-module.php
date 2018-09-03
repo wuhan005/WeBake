@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <?php include_once('wb-header.php');?>
 
 <h2><?php echo($this->db->get_module_by_id($_GET['id'])['module_FriendlyName']);?></h2>

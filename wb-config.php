@@ -1,4 +1,5 @@
 <?php
+defined('ABSPATH') OR exit('No direct script access allowed');
 
 //The base config of the WeBake
 

@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') OR exit('No direct script access allowed');
+
 //Set JSON header.
 header('Content-type: application/json');
 

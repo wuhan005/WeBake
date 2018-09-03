@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <?php include_once('wb-header.php');?>
 
 <h2>修改数据</h2>

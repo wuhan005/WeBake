@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') OR exit('No direct script access allowed');
+
 require_once('Database.class.php');
 require_once('Form.class.php');
 require_once('./wb-includes/Account.class.php');

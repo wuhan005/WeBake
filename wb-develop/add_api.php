@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>添加新的 API 接口</h2>
 

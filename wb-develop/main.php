@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>仪表盘</h2>
 

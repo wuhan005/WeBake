@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
     </div>
 </div>
 <span class="uk-text-meta uk-align-right uk-margin-large-right">

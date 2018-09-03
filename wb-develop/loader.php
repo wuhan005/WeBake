@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') OR exit('No direct script access allowed');
+
 require_once('../wb-includes/Database.class.php');
 require_once('../wb-includes/Account.class.php');
 
@@ -16,6 +18,7 @@ class Dev_Loader{
 
         //Register the router
         $this->pages['Index'] = 'main';
+        $this->pages['Action'] = 'action';
         $this->pages['API'] = 'api';
         $this->pages['Module'] = 'module';
         $this->pages['Setting'] = 'setting';

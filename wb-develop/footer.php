@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <!-- Main Content End-->   
     </body>
     <div class="uk-container">

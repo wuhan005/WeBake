@@ -1,4 +1,6 @@
 <?php 
+defined('ABSPATH') OR exit('No direct script access allowed');
+
 //Used to access the GET or POST data.
 //The data will be checked.
 class Form {

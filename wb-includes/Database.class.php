@@ -1,4 +1,5 @@
 <?php
+defined('ABSPATH') OR exit('No direct script access allowed');
 
 require_once( ABSPATH . '/wb-config.php');
 

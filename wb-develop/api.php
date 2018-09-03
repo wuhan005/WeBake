@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>API 接口</h2>
     <span class="uk-text-meta">当前共有 <?php echo(count($this->db->get_all_api())); ?> 个 API 接口</span> 

@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>项目设置</h2>
     <p class="uk-text-meta">这里是对当前项目的基本设置。</p>

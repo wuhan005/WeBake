@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>模块</h2>
     <a class="uk-button uk-button-primary uk-align-right" href="/wb-develop/index.php/AddModule">添加</a>

@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>删除数据</h2>
         
@@ -35,7 +37,7 @@
     </tbody>
     </table>
 
-    <form action="/index.php/Action?do=DeleteModule" method="POST">
+    <form action="/wb-develop/action.php?do=DeleteModule" method="POST">
         <input name="mid" type="hidden" value="<?php echo($_GET['id']);?>">
         <a href="/wb-develop/index.php/Module" class="uk-button uk-button-default uk-align-right">取消</a>
         <button type="submit" class="uk-button uk-button-danger uk-align-right">确认删除</button>

@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <div class="uk-container uk-container-small">
     <h2>修改模块 · <?php echo($this->db->get_module_by_id($_GET['id'])['module_Name']);?></h2>
     <form action="/wb-develop/action.php?do=EditModule" method="POST" class="uk-form-horizontal uk-margin-large">

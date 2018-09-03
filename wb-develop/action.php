@@ -1,6 +1,13 @@
 <?php
 define( 'ABSPATH', '..' );
 
+//Make sure the user is login.
+require_once('../wb-includes/Account.class.php');
+$account = new Account();
+if(!$account->isLogin() || $account->getUserType() != 'developer'){
+    header('Location: /index.php/Login');
+}
+
 require_once('../wb-includes/Database.class.php');
 $db = new Database();
 

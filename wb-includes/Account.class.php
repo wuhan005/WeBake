@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') OR exit('No direct script access allowed');
+
 require_once('Database.class.php');
 
 class Account{

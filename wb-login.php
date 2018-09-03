@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') OR exit('No direct script access allowed');?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +41,7 @@
             <p>登录失败，请重试。</p>
             </div>
         <?php }?>
-        <?php var_dump($_SESSION['isLoggedIn']);?>
+
         <!-- Form -->
         <form action="/index.php/Action?do=Login" method="POST">
             <div class="uk-margin">

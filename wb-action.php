@@ -1,5 +1,5 @@
 <?php
-
+defined('ABSPATH') OR exit('No direct script access allowed');
 
 if(isset($_GET['do'])){
     switch($_GET['do']){
