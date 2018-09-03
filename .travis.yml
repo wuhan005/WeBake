@@ -1,5 +1,0 @@
-language: php
-sudo: enabled
-notifications:
-  email:
-    - wuhan005@gmail.com

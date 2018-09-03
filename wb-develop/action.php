@@ -115,7 +115,21 @@ function editModule(){
 
     //Add the other user's field.
     for($i = 2; $i <= $row; $i++){
-        $data[$i - 1] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3']];
+        //The boolean, select, checkbox. upload needs the data field.
+        $needMoreOption = ['boolean', 'select', 'checkbox', 'upload'];
+
+        //Make sure the field isn't deleted.
+        if(!isset($_POST['field_' . $i .'_1'])){
+            continue;
+        }
+
+        if(in_array($_POST['field_' . $i .'_3'], $needMoreOption)){
+            $optionArray = comma_to_array($_POST['field_' . $i .'_4']);
+
+            $data[] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3'], $optionArray];
+        }else{
+            $data[] = [$_POST['field_' . $i .'_1'], $_POST['field_' . $i .'_2'], $_POST['field_' . $i .'_3']];
+        }
     }
 
     $data = json_encode($data, JSON_UNESCAPED_UNICODE); //Don't escaped Chinese words.

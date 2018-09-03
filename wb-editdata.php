@@ -52,12 +52,44 @@
 
                 <?php }else if($value[2] == 'select'){?>
                     <?php foreach($value[3] as $radioKey => $radioValue){?>
-                        <label><input class="uk-radio" type="radio" name="<?php echo($value[0]);?>" <?php isCheck($radioValue, $data[$value[0]]);?>> <?php echo($radioValue);?></label><br>
+                        <label>
+                            <input
+                                class="uk-radio"
+                                type="radio"
+                                name="<?php echo($value[0]);?>"
+                                value="<?php echo($radioValue); ?>"
+                                <?php
+                                //Check tbe box is select or not.
+                                //The field maybe added later, and the data wasn't existed.
+                                if(isset($data[$value[0]])){
+                                    isCheck($radioValue, $data[$value[0]]);
+                                }
+                                ?>
+                            >
+                            <?php echo($radioValue);?>
+                        </label>
+                        <br>
                     <?php }?>
 
                 <?php }else if($value[2] == 'checkbox'){?>
                     <?php foreach($value[3] as $radioKey => $radioValue){?>
-                        <label><input class="uk-checkbox" type="checkbox" name="<?php echo($value[0] . '[]');?>" value="<?php echo($radioValue);?>" <?php isCheck($radioValue, $data[$value[0]]);?>> <?php echo($radioValue);?></label><br>
+                        <label>
+                            <input
+                                class="uk-checkbox"
+                                type="checkbox"
+                                name="<?php echo($value[0] . '[]');?>"
+                                value="<?php echo($radioValue);?>"
+                                <?php 
+                                //Check tbe box is select or not.
+                                //The field maybe added later, and the data wasn't existed.
+                                if(isset($data[$value[0]])){
+                                    isCheck($radioValue, $data[$value[0]]);
+                                }
+                                ?>
+                            >
+                                <?php echo($radioValue);?>
+                        </label>
+                        <br>
                     <?php }?>
 
                 <?php }else if($value[2] == 'upload'){?>
