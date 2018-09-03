@@ -1,5 +1,6 @@
 <?php
 require_once('../wb-includes/Database.class.php');
+require_once('../wb-includes/Account.class.php');
 
 class Dev_Loader{
     private $urlPathInfo;
@@ -7,9 +8,11 @@ class Dev_Loader{
     private $pages = [];
 
     private $db;
+    private $account;
 
     //URL Router.
     public function __construct(){
+        $this->account = new Account;
 
         //Register the router
         $this->pages['Index'] = 'main';
@@ -29,6 +32,11 @@ class Dev_Loader{
         if($this->nowPage == null){
             //If it is /index.php, then go to the mainpage.
             $this->nowPage = 'Index';
+        }
+
+        //Make sure the user is login the its type is develop.
+        if(!$this->account->isLogin() || $this->account->getUserType() != 'developer'){
+            header('Location: /index.php');
         }
 
         //Load the database

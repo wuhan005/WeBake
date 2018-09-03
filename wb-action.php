@@ -1,10 +1,10 @@
 <?php
-require_once('./wb-includes/Account.class.php');
+
 
 if(isset($_GET['do'])){
     switch($_GET['do']){
         case 'Login':
-            login();
+            login($this->account);
         break;
         case 'AddData':
             add_module_data($this->db); //Require database;
@@ -20,8 +20,7 @@ if(isset($_GET['do'])){
     //TODO
 }
 
-function login(){
-    $account = new Account();
+function login($account){
 
     if(isset($_POST['name']) AND isset($_POST['password'])){
 

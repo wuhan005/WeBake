@@ -1,6 +1,7 @@
 <?php
 require_once('Database.class.php');
 require_once('Form.class.php');
+require_once('./wb-includes/Account.class.php');
 
 class WeBake{
 
@@ -10,9 +11,13 @@ class WeBake{
 
     private $db;
     private $form;
+    private $account;
 
     //URL Router.
     public function __construct(){
+
+        //Load the Account part.
+        $this->account = new Account();
 
         //Register the router
         $this->pages['Login'] = 'wb-login';
@@ -23,12 +28,27 @@ class WeBake{
         $this->pages['AddData'] = 'wb-adddata';
         $this->pages['DeleteData'] = 'wb-deletedata';
         $this->pages['EditData'] = 'wb-editdata';
+
+        //The pages which need login to access.
+        $needLoginPage = ['Dashboard', 'Module', 'AddData', 'DeleteData', 'EditData'];
         
         $this->urlPathInfo = @explode('/',$_SERVER['PATH_INFO']);
         $this->nowPage = @$this->urlPathInfo[1];
 
         if($this->nowPage == null){
-            //If it is /index.php, then go to login page.
+            if(!$this->account->isLogin()){
+                //If it is /index.php, then go to login page.
+                $this->nowPage = 'Login';
+            }else{
+                if($this->account->getUserType() == 'developer'){
+                    header('Location: /wb-develop/index.php');
+                }else{
+                    $this->nowPage = 'Dashboard';
+                }
+            }
+        }
+
+        if(!$this->account->isLogin() AND in_array($this->nowPage, $needLoginPage)){
             $this->nowPage = 'Login';
         }
 
