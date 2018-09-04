@@ -1,4 +1,7 @@
 <?php
+define( 'ABSPATH', dirname( dirname( __FILE__ ) ) . '/' );
+$config_path = ABSPATH . 'wb-config.php';
+
 function try_connect_database($database, $user, $password, $host){
     $db_conn = @mysqli_connect($host, $user, $password, $database);
         if(!$db_conn){
@@ -11,8 +14,8 @@ function try_connect_database($database, $user, $password, $host){
 }
 
 function set_config_file($database, $user, $password, $host){
-    define( 'ABSPATH', dirname( dirname( __FILE__ ) ) . '/' );
-    $config_path = ABSPATH . 'wb-config.php';
+    global $config_path;
+
     //Get the content of the wb-config.php file.
     $config_file = file($config_path);
 
@@ -52,6 +55,88 @@ function set_config_file($database, $user, $password, $host){
 
 function set_option_to_code($option, $value){
     return "define('$option', '$value');\r\n";
+}
+
+function init_database($projectName, $devName, $devPassword, $userName, $userPassword){
+    global $config_path;
+    require_once($config_path);
+    $db_conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    
+    //wb_account
+    mysqli_multi_query($db_conn,
+        'CREATE TABLE `wb_account` (
+            `account_ID` int(11) NOT NULL,
+            `account_Name` text NOT NULL,
+            `account_Password` text NOT NULL,
+            `account_Type` text NOT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+        CREATE TABLE `wb_api` (
+            `api_ID` int(11) NOT NULL,
+            `api_Name` text NOT NULL,
+            `api_Meta` mediumtext NOT NULL,
+            `api_Type` text NOT NULL,
+            `api_Setting` mediumtext NOT NULL,
+            `api_Method` text NOT NULL,
+            `api_Version` text NOT NULL,
+            `api_Module` int(255) NOT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+        ALTER TABLE `wb_api`
+        ADD PRIMARY KEY (`api_ID`);
+
+        ALTER TABLE `wb_api`
+        MODIFY `api_ID` int(11) NOT NULL AUTO_INCREMENT;
+        
+        CREATE TABLE `wb_data` (
+            `data_ID` int(255) NOT NULL,
+            `data_Content` mediumtext NOT NULL,
+            `data_Module` int(255) NOT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+          ALTER TABLE `wb_data`
+          ADD PRIMARY KEY (`data_ID`);
+
+          ALTER TABLE `wb_data`
+          MODIFY `data_ID` int(255) NOT NULL AUTO_INCREMENT;
+
+        CREATE TABLE `wb_module` (
+            `module_ID` int(255) NOT NULL,
+            `module_Name` text NOT NULL,
+            `module_FriendlyName` text NOT NULL,
+            `module_Key` mediumtext NOT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+          ALTER TABLE `wb_module`
+          ADD PRIMARY KEY (`module_ID`);
+
+          ALTER TABLE `wb_module`
+          MODIFY `module_ID` int(255) NOT NULL AUTO_INCREMENT;
+         
+        CREATE TABLE `wb_options` (
+            `options_ID` int(255) NOT NULL,
+            `options_Name` text NOT NULL,
+            `options_Value` mediumtext NOT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+          
+          ALTER TABLE `wb_options`
+          ADD PRIMARY KEY (`options_ID`);
+
+          ALTER TABLE `wb_options`
+          MODIFY `options_ID` int(255) NOT NULL AUTO_INCREMENT;
+          '
+        .
+
+    "INSERT INTO `wb_options` (`options_ID`, `options_Name`, `options_Value`) VALUES
+    (1, 'project_name', '$projectName'),
+    (2, 'copyright', '使用 WeBake 强力驱动！');"
+
+    .
+
+    "INSERT INTO `wb_account` (`account_ID`, `account_Name`, `account_Password`, `account_Type`) VALUES
+    (1, '$devName', '$devPassword', 'developer'),
+    (2, '$userName', '$userPassword', 'admin');"
+    );
 }
 ?>
 
@@ -129,7 +214,7 @@ function welcome_page(){
         <p>如果对这些信息尚不清楚，您可以联系您的主机服务提供商。准备好了的话...</p>
     </div>
     <div class="uk-card-footer">
-        <p class="uk-button uk-button-text">1 / 4</p>
+        <p class="uk-button uk-button-text">1 / 5</p>
         <a href="/wb-develop/install.php?step=2"class="uk-button uk-button-primary uk-align-right">开始吧！</a>
     </div>
 <?php } ?>
@@ -172,7 +257,7 @@ function database_config_page(){
         </div>
 
         <div class="uk-card-footer">
-            <p class="uk-button uk-button-text">2 / 4</p>
+            <p class="uk-button uk-button-text">2 / 5</p>
             <button type="submit" class="uk-button uk-button-primary uk-align-right">提交</button>
         </div>
     </form>
@@ -204,7 +289,7 @@ function confirm_database_config_page(){
             <p>真棒！您已经完成 WeBake 安装中最重要的一步。</p>
         </div>
         <div class="uk-card-footer">
-            <p class="uk-button uk-button-text">3 / 4</p>
+            <p class="uk-button uk-button-text">3 / 5</p>
             <a href="/wb-develop/install.php?step=4" class="uk-button uk-button-primary uk-align-right">继续</a>
         </div>
     <?php }else{?>
@@ -215,9 +300,79 @@ function confirm_database_config_page(){
             </div>
         </div>
         <div class="uk-card-footer">
-            <p class="uk-button uk-button-text">3 / 4</p>
+            <p class="uk-button uk-button-text">3 / 5</p>
             <button onclick="javascript:history.back(-1);" class="uk-button uk-button-default uk-align-right">返回</button>
         </div>
     <?php }?>
 
+<?php }?>
+
+<?php
+//Fourth page, get the user data.
+function user_data_page(){
+?>
+    <form action="/wb-develop/install.php?step=5" method="POST"  class="uk-form-horizontal">
+        <div class="uk-card-body">
+            <p>您需要填写一些基本信息。无需担心填错，这些信息以后可以再次修改。</p>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">项目名</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" name="project_name" type="text" value="我的项目" placeholder="我的项目">
+                    </div>
+                </div>
+            
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">开发者账号</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" name="dev_name" type="text">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">开发者密码</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" name="dev_password" type="text">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">客户账号</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" name="user_name" type="text">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">客户密码</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" name="user_password" type="text">
+                    </div>
+                </div>
+        </div>
+
+        <div class="uk-card-footer">
+            <p class="uk-button uk-button-text">4 / 5</p>
+            <button type="submit" class="uk-button uk-button-primary uk-align-right">提交</button>
+        </div>
+    </form>
+
+<?php }?>
+
+<?php 
+//Fifth page. Init the database and edit the data.
+function done_page(){?>
+
+<?php
+    if(isset($_POST['project_name'], $_POST['dev_name'], $_POST['dev_password'], $_POST['user_name'], $_POST['user_password'])){
+        init_database($_POST['project_name'], $_POST['dev_name'], $_POST['dev_password'], $_POST['user_name'], $_POST['user_password']);
+    }
+    ?>
+    <div class="uk-card-body">
+    WeBake 安装完成！谢谢！
+    </div>
+    <div class="uk-card-footer">
+        <p class="uk-button uk-button-text">5 / 5</p>
+        <a href="/index.php" class="uk-button uk-button-primary uk-align-right">开始使用</a>
+    </div>
 <?php }?>
