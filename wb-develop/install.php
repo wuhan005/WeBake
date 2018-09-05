@@ -152,6 +152,23 @@ function init_database($projectName, $devName, $devPassword, $userName, $userPas
     <script src="/static/js/uikit.min.js"></script>
     <script src="/static/js/uikit-icons.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <script src="/static/js/messages_zh.min.js"></script>
+
+    <script>
+    $().ready(function() {
+        $("#databaseForm").validate({
+                submitHandler:function(form){ 
+                    form.submit();
+                }
+            });
+        $("#userdataForm").validate({
+            submitHandler:function(form){ 
+                form.submit();
+            }
+        });
+        });
+    </script>
 
 	<title>WeBake - 安装</title>
 </head>
@@ -204,7 +221,7 @@ if(isset($_GET['step'])){
 //First page, welcome user and introduce WeBake. 
 function welcome_page(){
     global $config_path;
-    
+
     if(!file_exists($config_path)){
         //No config file. Install WeBake.
     
@@ -233,35 +250,35 @@ function welcome_page(){
 //Second page, get the database data.
 function database_config_page(){
     ?>
-    <form action="/wb-develop/install.php?step=3" method="POST"  class="uk-form-horizontal">
+    <form id="databaseForm" action="/wb-develop/install.php?step=3" method="POST"  class="uk-form-horizontal">
         <div class="uk-card-body">
             <p>请输入您的数据库信息，如果您不确定，请联系您的主机服务提供商。</p>
             
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">数据库名</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="database" type="text" placeholder="将 WeBake 安装到哪个数据库？">
+                        <input class="uk-input" name="database" type="text" placeholder="将 WeBake 安装到哪个数据库？" required>
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">用户名</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="user" type="text" placeholder="您的 MySQL 用户名">
+                        <input class="uk-input" name="user" type="text" placeholder="您的 MySQL 用户名" required>
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">密码</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="password" type="text" placeholder="...以及密码">
+                        <input class="uk-input" name="password" type="text" placeholder="...以及密码" required>
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">数据库主机</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="host" type="text" value="localhost" placeholder="如果填写 localhost 无法正常使用，请联系您的主机服务提供商">
+                        <input class="uk-input" name="host" type="text" value="localhost" placeholder="如果填写 localhost 无法正常使用，请联系您的主机服务提供商" required>
                     </div>
                 </div>
         </div>
@@ -321,42 +338,42 @@ function confirm_database_config_page(){
 //Fourth page, get the user data.
 function user_data_page(){
 ?>
-    <form action="/wb-develop/install.php?step=5" method="POST"  class="uk-form-horizontal">
+    <form id="userdataForm" action="/wb-develop/install.php?step=5" method="POST"  class="uk-form-horizontal">
         <div class="uk-card-body">
             <p>您需要填写一些基本信息。无需担心填错，这些信息以后可以再次修改。</p>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">项目名</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="project_name" type="text" value="我的项目" placeholder="我的项目">
+                        <input class="uk-input" name="project_name" type="text" value="我的项目" placeholder="我的项目" required>
                     </div>
                 </div>
             
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">开发者账号</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="dev_name" type="text">
+                        <input class="uk-input" name="dev_name" type="text" required>
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">开发者密码</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="dev_password" type="text">
+                        <input class="uk-input" name="dev_password" type="text" required>
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">客户账号</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="user_name" type="text">
+                        <input class="uk-input" name="user_name" type="text" required>
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">客户密码</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" name="user_password" type="text">
+                        <input class="uk-input" name="user_password" type="text" required>
                     </div>
                 </div>
         </div>
