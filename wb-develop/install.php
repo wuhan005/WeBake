@@ -1,5 +1,6 @@
 <?php
 define( 'ABSPATH', dirname( dirname( __FILE__ ) ) . '/' );
+$sample_config_path = ABSPATH . 'wb-config-sample.php';
 $config_path = ABSPATH . 'wb-config.php';
 
 function try_connect_database($database, $user, $password, $host){
@@ -15,9 +16,10 @@ function try_connect_database($database, $user, $password, $host){
 
 function set_config_file($database, $user, $password, $host){
     global $config_path;
+    global $sample_config_path;
 
     //Get the content of the wb-config.php file.
-    $config_file = file($config_path);
+    $config_file = file($sample_config_path);
 
     //Get each line of the file.
     foreach ( $config_file as $line_num => $line ) {
@@ -201,6 +203,14 @@ if(isset($_GET['step'])){
 <?php
 //First page, welcome user and introduce WeBake. 
 function welcome_page(){
+    global $config_path;
+    
+    if(!file_exists($config_path)){
+        //No config file. Install WeBake.
+    
+    }else{
+        exit();
+    }
     ?>
 
     <div class="uk-card-body">
