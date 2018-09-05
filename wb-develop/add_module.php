@@ -3,20 +3,23 @@
 <div class="uk-container uk-container-small">
     <h2>添加新的模块</h2>
 
-    <form action="/wb-develop/action.php?do=AddModule" method="POST" class="uk-form-horizontal uk-margin-large">
-
+    <form id="moduleForm" action="/wb-develop/action.php?do=AddModule" method="POST" class="uk-form-horizontal uk-margin-large">
+    <div id="alertBox" class="uk-alert-warning" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p id="alertLog">表单中有必填字段为空，请检查。</p>
+    </div>
         <input id="row" name="row" type="hidden">
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">模块名</label>
             <div class="uk-form-controls">
-                <input name="name" class="uk-input" id="form-horizontal-text" type="text">
+                <input name="name" class="uk-input" id="form-horizontal-text" type="text" required>
             </div>
         </div>
 
          <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">显示名称</label>
             <div class="uk-form-controls">
-                <input name="friendlyname" class="uk-input" id="form-horizontal-text" type="text">
+                <input name="friendlyname" class="uk-input" id="form-horizontal-text" type="text" required>
             </div>
         </div>
 
@@ -34,7 +37,7 @@
                 </thead>
                 <tbody>
                     <tr id="field_1">
-                        <td><input name="field_1_1" class="uk-input uk-form-width-medium" type="text"></td>
+                        <td><input name="field_1_1" class="uk-input uk-form-width-medium" type="text" required></td>
                         <td>编号</td>
                         <td>
                             数字(number)
@@ -44,10 +47,10 @@
                         </td>
                     </tr>
                     <tr id="field_2">
-                        <td><input name="field_2_1" class="uk-input uk-form-width-medium" type="text"></td>
-                        <td><input name="field_2_2" class="uk-input uk-form-width-medium" type="text"></td>
+                        <td><input name="field_2_1" class="uk-input uk-form-width-medium" type="text" required></td>
+                        <td><input name="field_2_2" class="uk-input uk-form-width-medium" type="text" required></td>
                         <td>
-                            <select id="field_select" name="field_2_3" onChange="onTypeChange(2)" class="uk-select" id="form-stacked-select">
+                            <select id="field_select" name="field_2_3" onChange="onTypeChange(2)" class="uk-select" id="form-stacked-select" required>
                                 <option value="string">字符串 (string)</option>
                                 <option value="textarea">长文本 (textarea)</option>
                                 <option value="number">数字 (number)</option>
@@ -76,6 +79,7 @@
     var row = 2;
 
     $('#row').val(row);     //Set the row hidden input.
+    $('#alertBox').hide();      //Hide the alert.
     
     $('#AddNewModule').click(function(){
         row++;
@@ -113,7 +117,7 @@
     //Judge if show the more option field.
     function onTypeChange(fieldID){
         var selectValue = $("select[name='field_" + fieldID +"_3']").val();
-
+        $('#field_' + fieldID +'_4-error').hide();
         switch (selectValue){
             case 'boolean':
                 showOptionField(fieldID, '是,否（使用 , 分割）');
@@ -128,16 +132,30 @@
                 showOptionField(fieldID, '允许上传的文件格式：png,jepg,jpg（使用 , 分割）');
             break;
             default:
+                $('#field_' + fieldID + '_4').attr('required', false);
                 $('#field_' + fieldID + '_4').hide();
         }
     }
 
     function showOptionField(fieldID, placeHolder, defaultValue){
         $('#field_' + fieldID + '_4').attr('placeholder', placeHolder);
+        $('#field_' + fieldID + '_4').attr('required','required');
         $('#field_' + fieldID + '_4').show();
     }
 
-    $('#DeleteModule').click(function(e){
-        console.log(e)
+    //Check the form.
+    $().ready(function() {
+        $("#moduleForm").validate({
+            submitHandler:function(form){ 
+                form.submit();
+            }
+        });
+    });
+
+    $.validator.setDefaults({
+        errorPlacement: function(error, element) {  
+            $('#alertBox').show();
+        }
     })
+
 </script>
