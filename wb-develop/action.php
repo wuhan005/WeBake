@@ -96,7 +96,7 @@ function addAPI(){
 function deleteAPI(){
     global $db;
     if(isset($_POST['id'])){
-        $db->delete_api($id);
+        $db->delete_api($_POST['id']);
     }
 
     redirect('/wb-develop/index.php/API');

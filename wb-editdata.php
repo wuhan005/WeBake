@@ -41,7 +41,7 @@
                     <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="text" value="<?php echo($data[$value[0]]); ?>">
 
                 <?php }else if($value[2] == 'textarea'){?>
-                    <textarea name="<?php echo($value[0]);?>" class="uk-textarea" rows="5" value="<?php echo($data[$value[0]]); ?>"></textarea>
+                    <textarea name="<?php echo($value[0]);?>" class="uk-textarea" rows="5"><?php echo($data[$value[0]]); ?></textarea>
 
                 <?php }else if($value[2] == 'number'){?>
                     <input name="<?php echo($value[0]);?>" class="uk-input uk-form-width-large" id="form-horizontal-text" type="number"  value="<?php echo($data[$value[0]]); ?>">

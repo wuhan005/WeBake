@@ -10,6 +10,8 @@
         <script src="/static/js/uikit.min.js"></script>
         <script src="/static/js/uikit-icons.min.js"></script>
         <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/static/js/jquery.validate.min.js"></script>
+        <script src="/static/js/messages_zh.min.js"></script>
     </head>
     <body>
 
