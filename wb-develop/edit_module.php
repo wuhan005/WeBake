@@ -2,7 +2,11 @@
 
 <div class="uk-container uk-container-small">
     <h2>修改模块 · <?php echo($this->db->get_module_by_id($_GET['id'])['module_Name']);?></h2>
-    <form action="/wb-develop/action.php?do=EditModule" method="POST" class="uk-form-horizontal uk-margin-large">
+    <form id="moduleForm" action="/wb-develop/action.php?do=EditModule" method="POST" class="uk-form-horizontal uk-margin-large">
+    <div id="alertBox" class="uk-alert-warning" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p id="alertLog">表单中有必填字段为空，请检查。</p>
+    </div>
 
     <?php 
     function isSelect($type, $nowSelect){
@@ -56,7 +60,7 @@
                 <tbody>
                     <tr id="field_1">
                         <td></td>
-                        <td><input name="field_1_1" class="uk-input uk-form-width-medium" type="text" value="<?php echo(json_decode($module['module_Key'], true)[0][0]);?>"></td>
+                        <td><input name="field_1_1" class="uk-input uk-form-width-medium" type="text" value="<?php echo(json_decode($module['module_Key'], true)[0][0]);?>" required></td>
                         <td>编号</td>
                         <td>
                             数字(number)
@@ -71,10 +75,10 @@
                     ?>
                         <tr id="field_<?php echo($key + 1);?>">
                             <td><button onClick="deleteField(<?php echo($key + 1);?>)" class="uk-button uk-button-danger uk-button-small" ><span uk-icon="icon: trash;"></span></button></td>
-                            <td><input name="field_<?php echo($key + 1)?>_1" class="uk-input uk-form-width-medium" type="text" value="<?php echo($value[0]);?>"></td>
-                            <td><input name="field_<?php echo($key + 1)?>_2" class="uk-input uk-form-width-medium" type="text" value="<?php echo($value[1]);?>"></td>
+                            <td><input name="field_<?php echo($key + 1)?>_1" class="uk-input uk-form-width-medium" type="text" value="<?php echo($value[0]);?>" required></td>
+                            <td><input name="field_<?php echo($key + 1)?>_2" class="uk-input uk-form-width-medium" type="text" value="<?php echo($value[1]);?>" required></td>
                             <td>
-                                <select name="field_<?php echo($key + 1)?>_3" class="uk-select" onChange="onTypeChange(<?php echo($key + 1);?>)" id="form-stacked-select">
+                                <select name="field_<?php echo($key + 1)?>_3" class="uk-select" onChange="onTypeChange(<?php echo($key + 1);?>)" id="form-stacked-select" required>
                                     <option value="string" <?php isSelect('string', $value[2]);?>>字符串 (string)</option>
                                     <option value="textarea" <?php isSelect('textarea', $value[2]);?>>长文本 (textarea)</option>
                                     <option value="number" <?php isSelect('number', $value[2]);?>>数字 (number)</option>
@@ -92,6 +96,7 @@
                                 class="uk-input uk-form-width-medium" 
                                 type="text" 
                                 style="display:<?php if(!isset($value[3])){echo('none');}?>;"
+                                required
                             >
                             </td>
                         </tr>
@@ -110,18 +115,10 @@
 
 
 <script>
-    // var row = ;
-    // $('#row').val(row);
-    // $('#AddNewModule').click(function(){
-    //     row++;
-    //     var newRow = '<tr><td><input name="field_' + row + '_1" class="uk-input uk-form-width-medium" type="text"></td><td><input name="field_' + row +'_2" class="uk-input uk-form-width-medium" type="text"></td><td><select name="field_' + row + '_3" class="uk-select" id="form-stacked-select"><option value="string">字符串(string)</option><option value="number">数字(number)</option><option value="boolean">布尔(boolean)</option></select></td></tr>';
-    //     $('#KeyTable').append(newRow);
-    //     $('#row').val(row);
-    // })
-
     var row = <?php echo(count( json_decode($module['module_Key'], true) )); ?>;
 
     $('#row').val(row);     //Set the row hidden input.
+    $('#alertBox').hide();
     
     $('#AddNewModule').click(function(){
         row++;
@@ -174,16 +171,33 @@
                 showOptionField(fieldID, '允许上传的文件格式：png,jepg,jpg（使用 , 分割）');
             break;
             default:
+                $('#field_' + fieldID + '_4').attr('required', false);
                 $('#field_' + fieldID + '_4').hide();
         }
     }
 
     function showOptionField(fieldID, placeHolder, defaultValue){
         $('#field_' + fieldID + '_4').attr('placeholder', placeHolder);
+        $('#field_' + fieldID + '_4').attr('required','required');
         $('#field_' + fieldID + '_4').show();
     }
 
     function deleteField(fieldID){
         $('#field_' + fieldID).remove();
     }
+
+    //Check the form.
+    $().ready(function() {
+        $("#moduleForm").validate({
+            submitHandler:function(form){ 
+                form.submit();
+            }
+        });
+    });
+
+    $.validator.setDefaults({
+        errorPlacement: function(error, element) {  
+            $('#alertBox').show();
+        }
+    })
 </script>

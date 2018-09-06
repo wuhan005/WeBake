@@ -136,7 +136,7 @@ function editModule(){
 
     $db->edit_module($mid, $name, $friendlyName, $data);
 
-    redirect('/wb-develop/index.php/EditModule?id=' . $mid);
+    redirect('/wb-develop/index.php/Module');
 }
 
 function deleteModule(){
