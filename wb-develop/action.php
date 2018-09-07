@@ -19,6 +19,9 @@ if(isset($_GET['do'])){
         case 'AddAPI':
             addAPI();
         break;
+        case 'EditAPI':
+            editAPI();
+        break;
         case 'DeleteAPI':
             deleteAPI();
         break;
@@ -89,6 +92,36 @@ function addAPI(){
 
 
     $db->add_api($data);
+
+    redirect('/wb-develop/index.php/API');
+}
+
+function editAPI(){
+    global $db;
+    $id = $_POST['id'];
+
+    //The order should be equal to the database's.
+    $data['name'] = $_POST['name'];
+    $data['meta'] = $_POST['meta'];
+    $data['type'] = $_POST['type'];
+
+    //Setting
+    //Different type.
+    if($data['type'] == 'read'){
+        if($_POST['showAmount'] == 'all'){
+            //Add the setting, 'all' is just one element.
+            $data['setting'] = json_encode(['all']);
+        }else if($_POST['showAmount'] == 'part'){
+            $data['setting'] = json_encode(['part', $_POST['countPerPage'], $_POST['nowPageName']]);
+        }
+    }
+
+    $data['method'] = $_POST['method'];
+    $data['version'] = $_POST['version'];
+    $data['module'] = $_POST['module'];
+
+
+    $db->edit_api($data, $id);
 
     redirect('/wb-develop/index.php/API');
 }

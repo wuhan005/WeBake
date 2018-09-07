@@ -29,7 +29,9 @@
                     <td><?php echo('/Api/' . $value['api_Version'] . '/' .$value['api_Meta'] ); ?></td>
                     <td><?php echo($this->db->get_module_by_id($value['api_Module'])['module_Name']); ?></td>
                     <td><a href="/index.php/<?php echo('Api/' . $value['api_Version'] . '/' .$value['api_Meta'] ); ?>" target="_blank">测试</a>
-                     | <a>修改</a> | <a href="/wb-develop/index.php/DeleteAPI?id=<?php echo($value['api_ID']); ?>" class="uk-text-danger">删除</a></td>
+                    |
+                      <a href="/wb-develop/index.php/EditAPI?version=<?php echo($value['api_Version']);?>&meta=<?php echo($value['api_Meta']);?>">修改</a>
+                    | <a href="/wb-develop/index.php/DeleteAPI?id=<?php echo($value['api_ID']); ?>" class="uk-text-danger">删除</a></td>
                 </tr>
             <?php }?>
             </tbody>

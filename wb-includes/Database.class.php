@@ -121,6 +121,11 @@ class Database {
         mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Setting`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
     }
 
+    public function edit_api($data, $id){
+        $data = implode(', ', $this->array_quote($data));
+        mysqli_query($this->conn, "UPDATE `wb_api` SET `data_Content` = '$data' WHERE `data_ID` = $moduleID;");
+    }
+
     public function delete_api($id){
         mysqli_query($this->conn, "DELETE FROM `wb_api` WHERE `api_ID` = $id");
     }
