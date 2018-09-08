@@ -16,9 +16,9 @@
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">标签</label>
+            <label class="uk-form-label" for="form-horizontal-text">URL</label>
             <div class="uk-form-controls">
-                <input name="meta" class="uk-input" id="form-horizontal-text" type="text" required>
+                <input name="url" class="uk-input" id="form-horizontal-text" type="text" required>
             </div>
         </div>
 
@@ -68,13 +68,6 @@
                     <option value="get">GET</option>
                     <option value="post">POST</option>
                 </select>
-            </div>
-        </div>
-
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">版本</label>
-            <div class="uk-form-controls">
-                <input name="version" class="uk-input" id="form-horizontal-text" type="text" value="v1" required>
             </div>
         </div>
 

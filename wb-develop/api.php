@@ -11,7 +11,6 @@
                 <tr>
                     <th>#</th>
                     <th>API介绍</th>
-                    <th>版本</th>
                     <th>请求方式</th>
                     <th>URL</th>
                     <th>模块来源</th>
@@ -24,11 +23,10 @@
                 <tr>
                     <td><?php echo($value['api_ID']); ?></td>
                     <td><?php echo($value['api_Name']); ?></td>
-                    <td><?php echo($value['api_Version']); ?></td>
                     <td><?php echo($value['api_Method']); ?></td>
-                    <td><?php echo('/Api/' . $value['api_Version'] . '/' .$value['api_Meta'] ); ?></td>
+                    <td><?php echo('/Api/' . $value['api_URL']);?></td>
                     <td><?php echo($this->db->get_module_by_id($value['api_Module'])['module_Name']); ?></td>
-                    <td><a href="/index.php/<?php echo('Api/' . $value['api_Version'] . '/' .$value['api_Meta'] ); ?>" target="_blank">测试</a>
+                    <td><a href="/index.php/<?php echo('Api/' . $value['api_URL'] ); ?>" target="_blank">测试</a>
                     |
                       <a href="/wb-develop/index.php/EditAPI?version=<?php echo($value['api_Version']);?>&meta=<?php echo($value['api_Meta']);?>">修改</a>
                     | <a href="/wb-develop/index.php/DeleteAPI?id=<?php echo($value['api_ID']); ?>" class="uk-text-danger">删除</a></td>

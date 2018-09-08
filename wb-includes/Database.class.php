@@ -43,8 +43,8 @@ class Database {
         return mysqli_fetch_all($result, MYSQLI_BOTH);
     }
 
-    public function get_single_api($version, $meta){
-        $result = mysqli_query($this->conn, "SELECT * FROM wb_api WHERE `api_Version` = '$version' AND `api_Meta` = '$meta'");
+    public function get_single_api($url){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_api WHERE `api_URL` = '$url'");
         return mysqli_fetch_all($result, MYSQLI_BOTH)[0]; 
     }
 
@@ -118,12 +118,12 @@ class Database {
     public function add_api($data){
         //Pay attention the $data's order.
         $data = implode(', ', $this->array_quote($data));
-        mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_Meta`, `api_Type`, `api_Setting`, `api_Method`, `api_Version`, `api_Module`) VALUES (NULL, ' . $data . ');' );
+        mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_URL`, `api_Type`, `api_Setting`, `api_Method`, `api_Module`) VALUES (NULL, ' . $data . ');' );
     }
 
     public function edit_api($data, $id){
         $data = implode(', ', $this->array_quote($data));
-        mysqli_query($this->conn, "UPDATE `wb_api` SET `data_Content` = '$data' WHERE `data_ID` = $moduleID;");
+        mysqli_query($this->conn, "UPDATE `wb_api` SET `data_Content` = '$data' WHERE `data_ID` = $id;");
     }
 
     public function delete_api($id){

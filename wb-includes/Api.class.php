@@ -15,7 +15,7 @@ class Api{
 
         //Add the Api url.
         foreach($this->db->get_all_api() as $key => $value){
-            $this->ApiURL[] = $value['api_Version'] . '/' . $value['api_Meta'];
+            $this->ApiURL[] = $value['api_URL'];
         }
 
         //The Api is existed or not. 
@@ -29,7 +29,7 @@ class Api{
 
     private function pack_api(){
         //We think the api is existed.
-        $apiData = $this->db->get_single_api($this->get_now_api('version'), $this->get_now_api('meta'));
+        $apiData = $this->db->get_single_api($this->get_now_api('url'));
 
         $api_type = $apiData['api_Type'];
         $api_method = $apiData['api_Method'];
@@ -118,26 +118,12 @@ class Api{
     }
 
     //URL Router
-    private function get_now_api($type='all'){
+    private function get_now_api(){
         $urlPathInfo = @explode('/',$_SERVER['PATH_INFO']);
 
-        $version = @$urlPathInfo[2];
-        $meta = @$urlPathInfo[3];
+        $url = @$urlPathInfo[2];
         
-        //Used to get the every part of the url.
-        switch($type){
-            case 'all':
-                return $version . '/' . $meta;
-            break;
-            case 'version':
-                return $version;
-            break;
-            case 'meta':
-                return $meta;
-            break;
-            default:
-                return $version . '/' . $meta;
-        }
+        return $url;
     }
 
     private function render($code, $data, $isError = false){
