@@ -16,7 +16,7 @@
             }
         }
 
-        $api = $this->db->get_single_api($_GET['version'], $_GET['meta']);
+        $api = $this->db->get_single_api_by_id($_GET['id']);
         ?>
 
         <input name="id" type="hidden" value="<?php echo($api['api_ID']);?>">
@@ -24,14 +24,14 @@
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">用途介绍</label>
             <div class="uk-form-controls">
-                <input name="name" class="uk-input" id="form-horizontal-text" type="text" value="<?php echo($api['api_Name']);?>" required>
+                <input name="name" class="uk-input" type="text" value="<?php echo($api['api_Name']);?>" required>
             </div>
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">标签</label>
+            <label class="uk-form-label" for="form-horizontal-text">URL</label>
             <div class="uk-form-controls">
-                <input name="meta" class="uk-input" id="form-horizontal-text" type="text" value="<?php echo($api['api_Meta']);?>" required>
+                <input name="url" class="uk-input" type="text" value="<?php echo($api['api_URL']);?>" required>
             </div>
         </div>
 
@@ -95,13 +95,6 @@
                     <option value="get" <?php isSelect('read', $api['api_Type']);?>>GET</option>
                     <option value="post" <?php isSelect('post', $api['api_Type']);?>>POST</option>
                 </select>
-            </div>
-        </div>
-
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-text">版本</label>
-            <div class="uk-form-controls">
-                <input name="version" class="uk-input" id="form-horizontal-text" type="text" value="<?php echo($api['api_Version']);?>" required>
             </div>
         </div>
 

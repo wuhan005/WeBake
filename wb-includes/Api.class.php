@@ -119,11 +119,14 @@ class Api{
 
     //URL Router
     private function get_now_api(){
-        $urlPathInfo = @explode('/',$_SERVER['PATH_INFO']);
+        $urlPath = $_SERVER['PATH_INFO'];
 
-        $url = @$urlPathInfo[2];
+        // Get the '/Api/' string's posistion.
+        $firstIndex = strpos($urlPath, '/Api/');
         
-        return $url;
+        //Get the string behind the '/Api/'.
+        $urlPath = substr($urlPath, $firstIndex + 5);
+        return $urlPath;
     }
 
     private function render($code, $data, $isError = false){

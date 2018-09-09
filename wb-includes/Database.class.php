@@ -122,8 +122,9 @@ class Database {
     }
 
     public function edit_api($data, $id){
-        $data = implode(', ', $this->array_quote($data));
-        mysqli_query($this->conn, "UPDATE `wb_api` SET `data_Content` = '$data' WHERE `data_ID` = $id;");
+        //$data = implode(', ', $this->array_quote($data));
+        mysqli_query($this->conn, 'UPDATE `wb_api` SET ' . $this->api_data_string_convert($data) . " WHERE `api_ID` = $id;");
+        //echo('UPDATE `wb_api` SET ' . $this->api_data_string_convert($data) . " WHERE `api_ID` = $id;");
     }
 
     public function delete_api($id){
@@ -165,6 +166,20 @@ class Database {
             mysqli_query($this->conn, "UPDATE `wb_options` SET `options_Value` = '$value' WHERE `options_Name` = '$key';");
         }
 
+    }
+
+    private function api_data_string_convert($data){
+        //Convert the update api string.
+        $fieldArray = ['api_Name', 'api_URL', 'api_Type', 'api_Setting', 'api_Method', 'api_Module'];
+        $updateString = '';
+        
+        foreach($fieldArray as $key => $value){
+            $updateString .= "`$value` = '" . $data[$value] . '\',';
+        }
+
+        //Remove the last comma.
+        $updateString = substr($updateString, 0, strlen($updateString) - 1);
+        return $updateString;
     }
 
     private function array_quote($array){

@@ -100,26 +100,26 @@ function editAPI(){
     global $db;
     $id = $_POST['id'];
 
-    //The order should be equal to the database's.
-    $data['name'] = $_POST['name'];
-    $data['meta'] = $_POST['meta'];
-    $data['type'] = $_POST['type'];
+    $data = array();
+
+    //The key name should be equal to the database's field name.
+    $data['api_Name'] = $_POST['name'];
+    $data['api_URL'] = $_POST['url'];
+    $data['api_Type'] = $_POST['type'];
 
     //Setting
     //Different type.
-    if($data['type'] == 'read'){
+    if($data['api_Type'] == 'read'){
         if($_POST['showAmount'] == 'all'){
             //Add the setting, 'all' is just one element.
-            $data['setting'] = json_encode(['all']);
+            $data['api_Setting'] = json_encode(['all']);
         }else if($_POST['showAmount'] == 'part'){
-            $data['setting'] = json_encode(['part', $_POST['countPerPage'], $_POST['nowPageName']]);
+            $data['api_Setting'] = json_encode(['part', $_POST['countPerPage'], $_POST['nowPageName']]);
         }
     }
 
-    $data['method'] = $_POST['method'];
-    $data['version'] = $_POST['version'];
-    $data['module'] = $_POST['module'];
-
+    $data['api_Method'] = $_POST['method'];
+    $data['api_Module'] = $_POST['module'];
 
     $db->edit_api($data, $id);
 
