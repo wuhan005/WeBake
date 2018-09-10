@@ -78,6 +78,11 @@ class Database {
         }
     }
 
+    public function get_module_by_name($moudleName){
+        $result = mysqli_query($this->conn, "SELECT * FROM wb_ WHERE module_Name = $moduleName");
+        return mysqli_fetch_all($result, MYSQLI_ASSOC); 
+    }
+
     public function get_key_friendly_name($moduleID, $keyName){
         $result = mysqli_query($this->conn, "SELECT * FROM wb_module WHERE `module_ID` = '$moduleID'");
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);

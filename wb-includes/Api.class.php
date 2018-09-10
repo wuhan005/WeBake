@@ -94,7 +94,7 @@ class Api{
                 $this->render(200, $this->data_handle($nowPageData, $firstData));
             }
 
-
+        //ADD
         }else if($api_type == 'add'){
             $moduleField = $this->db->get_module_by_id($api_module);
             $moduleField = $moduleField['module_Key'];
@@ -141,6 +141,28 @@ class Api{
                 $this->render(200, 'success.');
             }
 
+        //DELETE
+        }else if($api_type == 'delete'){
+            if($api_method == 'get'){
+                if(isset($_GET['id'])){
+                    $this->db->delete_data($_GET['id']);
+                    $this->render(200, 'success.');
+                }else{
+                    //If does't get parm, return error.
+                    $this->render(500, 'Lack of parameter.');
+                    die();
+                }
+            }else if($api_method == 'post'){
+                if(isset($_POST['id'])){
+                    $this->db->delete_data($_POST['id']);
+                    $this->render(200, 'success.');
+                }else{
+                    //If does't get parm, return error.
+                    $this->render(500, 'Lack of parameter.');
+                    die();
+                }
+            }
+
         }
     }
 
@@ -150,7 +172,9 @@ class Api{
         $result = array();
 
         foreach($data as $key => $value){
-            $result[$key]['id'] = $firstID + $key + 1;     //Add current api's id.
+            $result[$key]['id'] = $value['data_ID'];
+
+            $result[$key]['no'] = $firstID + $key + 1;     //Add current api's number id.
             $dataContent = json_decode($value['data_Content'], true);
 
             //Loop to add each data field.
