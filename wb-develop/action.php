@@ -72,9 +72,10 @@ function addAPI(){
 
     //The order should be equal to the database's.
     $data['name'] = $_POST['name'];
-    $data['meta'] = $_POST['meta'];
+    $data['url'] = $_POST['url'];
     $data['type'] = $_POST['type'];
 
+    $data['setting'] = '';
     //Setting
     //Different type.
     if($data['type'] == 'read'){
@@ -87,7 +88,6 @@ function addAPI(){
     }
 
     $data['method'] = $_POST['method'];
-    $data['version'] = $_POST['version'];
     $data['module'] = $_POST['module'];
 
 

@@ -119,6 +119,7 @@ class Database {
         //Pay attention the $data's order.
         $data = implode(', ', $this->array_quote($data));
         mysqli_query($this->conn, 'INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_URL`, `api_Type`, `api_Setting`, `api_Method`, `api_Module`) VALUES (NULL, ' . $data . ');' );
+        //echo('INSERT INTO `wb_api` (`api_ID`, `api_Name`, `api_URL`, `api_Type`, `api_Setting`, `api_Method`, `api_Module`) VALUES (NULL, ' . $data . ');');
     }
 
     public function edit_api($data, $id){

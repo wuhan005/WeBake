@@ -28,6 +28,10 @@
                 <select id="type" name="type" class="uk-select" id="form-stacked-select" onchange="apiTypeChange()" required>
                     <option value="read">读取</option>
                     <option value="action">请求</option>
+                    <option value="add">添加</option>
+                    <option value="delete">删除</option>
+                    <option value="update">更新</option>
+                    <option value="login">登录</option>
                 </select>
             </div>
         </div>
@@ -111,17 +115,21 @@ $( "#nowPageName" ).validate({
 
 function apiTypeChange(){
     var apiType = $('#type').val();
+    switch(apiType){
+        case 'read':
+            $('#readSetting').show();
+            displayTypeSettingChange();
+        break;
+        case 'action':
+            $('#readSetting').hide();
+            $('#partDisplaySetting').hide();
+        break;
 
-    if(apiType == 'read'){
-        $('#readSetting').show();
-        displayTypeSettingChange();
+        default:
+            $('#readSetting').hide();
+            $('#partDisplaySetting').hide();
 
-    }else if(apiType == 'action'){
-        $('#readSetting').hide();
-
-        $('#partDisplaySetting').hide();
     }
-
 }
 
 function displayTypeSettingChange(){

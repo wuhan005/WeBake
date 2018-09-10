@@ -38,6 +38,7 @@ class Api{
         $api_Setting = $apiData['api_Setting'];
         $api_Setting = json_decode($api_Setting, true);
 
+        //READ
         if($api_type == 'read'){
 
             if($api_Setting[0] == 'all'){
@@ -94,7 +95,51 @@ class Api{
             }
 
 
-        }else if($api_type == 'action'){
+        }else if($api_type == 'add'){
+            $moduleField = $this->db->get_module_by_id($api_module);
+            $moduleField = $moduleField['module_Key'];
+            $moduleField = json_decode($moduleField, true);
+
+            if($api_method == 'get'){
+                //Make sure all the value is sent.
+                $data = array();
+                foreach($moduleField as $key => $value){
+                    //value[0] is the name of the field.
+                    //$key == 0 means the first field ID no need to be given.
+                    if(isset($_GET[$value[0]]) || $key == 0){
+                        if($key != 0){
+                            $data[$value[0]] = $_GET[$value[0]];
+                        }
+                        continue;
+                    }else{
+                        //Missing parm, turn error.
+                        $this->render(500, 'Lack of parameter: ' . $value[0]);
+                        die();
+                    }
+                }
+                $this->db->add_data($api_module, $data);
+                $this->render(200, 'success.');
+
+            }else if($api_method == 'post'){
+                //Make sure all the value is sent.
+                $data = array();
+                foreach($moduleField as $key => $value){
+                    //value[0] is the name of the field.
+                    //$key == 0 means the first field ID no need to be given.
+                    if(isset($_POST[$value[0]]) || $key == 0){
+                        if($key != 0){
+                            $data[$value[0]] = $_POST[$value[0]];
+                        }
+                        continue;
+                    }else{
+                        //Missing parm, turn error.
+                        $this->render(500, 'Lack of parameter: ' . $value[0]);
+                        die();
+                    }
+                }
+                $this->db->add_data($api_module, $data);
+                $this->render(200, 'success.');
+            }
 
         }
     }
